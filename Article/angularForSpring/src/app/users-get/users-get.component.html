@@ -1,0 +1,35 @@
+
+<div class="container">
+  <div class="form-group mb-4">
+    <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search">
+  </div>
+  <table class="table table-striped table-bordered table-sm"
+         *ngIf="(users | filter: searchText).length >0; else noResults">
+    <thead>
+    <tr class="mat-header-row">
+      <th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col" colspan="3">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="mat-row" *ngFor="let user of users | filter: searchText; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{ user.userID }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td><a [routerLink]="['/article-add', user.userID]"   class="btn btn-primary" style="color:white">Add Article</a></td>
+      <td><a [routerLink]="['/articles-get-by-user', user.userID]"   class="btn btn-primary" style="color:white">View Articles</a></td>
+      <td><a (click) = "deleteUser(user.userID)"   class="btn btn-danger" style="button-size: 50%;color:white">Delete</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <mat-paginator #paginator  [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+                 (page)="nextPage($event)">
+  </mat-paginator>
+  <ng-template #noResults>
+    <p>No results found for "{{searchText}}".</p>
+  </ng-template>
+</div>

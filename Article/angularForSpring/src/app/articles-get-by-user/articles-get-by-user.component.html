@@ -1,0 +1,37 @@
+
+<div class="container">
+  <div class="form-group mb-4">
+    <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search">
+  </div>
+  <p style="text-align: center;font-size: 30px;">Articles of: <b>{{ user.firstName }} {{user.lastName}}</b></p>
+  <table class="table table-striped table-bordered table-sm" *ngIf="(articles | filter: searchText).length >0; else noResults">
+    <thead>
+    <tr class="mat-header-row">
+      <th scope="col">#</th>
+      <th scope="col">ArticleID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Date of Create</th>
+      <th scope="col">Date of Modify</th>
+      <th scope="col" colspan="3">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="mat-row" *ngFor="let article of articles | filter: searchText; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{ article.articleId }}</td>
+      <td>{{ article.title }}</td>
+      <td>{{ article.dateOfCreate | date:'yyyy-MM-dd hh:mm'  }} </td>
+      <td>{{ article.dateOfModify | date:'yyyy-MM-dd hh:mm'  }} </td>
+      <td><a [routerLink]="['/article-reader', article.articleId]"   class="btn btn-primary" style="color:white">Open Article</a></td>
+      <td><a [routerLink]="['/article-modify', article.articleId]"   class="btn btn-primary" style="color:white">Modify Article</a></td>
+      <td><a (click) = "deleteArticle(article.articleId)"   class="btn btn-danger" style="color:white">Delete Article</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <mat-paginator #paginator  [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+                 (page)="nextPage($event)">
+  </mat-paginator>
+  <ng-template #noResults>
+    <p>No results found for "{{searchText}}".</p>
+  </ng-template>
+</div>

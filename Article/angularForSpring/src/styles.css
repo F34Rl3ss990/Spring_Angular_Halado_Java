@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+.table td, .table th{
+  vertical-align: inherit!important;
+  text-align:center;
+}
+
+.form-group {
+  padding-top:15px;
+  margin:0px!important;
+}
+
+.alert.alert-danger{
+  margin:0px!important;
+}
+h2 {
+  color:green;
+  padding-top:10px;
+  text-align: center;
+}
+h3{
+  text-align: center;
+}
