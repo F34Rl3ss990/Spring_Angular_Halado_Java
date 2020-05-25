@@ -13,11 +13,17 @@ import java.util.Optional;
 public interface ArticleService {
 
     Article saveArticle(ArticleDTO articleDTO);
+
     Optional<Article> getById(int id);
+
     void deleteById(int id);
+
     Page<Article> getArticlesPage(PageRequest pageRequest);
+
     Article modifyArticle(Article article);
+
     void deleteArticle(Article article);
+
     List<Article> getArticleList();
 
 }

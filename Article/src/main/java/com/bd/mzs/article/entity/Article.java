@@ -22,12 +22,12 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "article_id")
+    @Column(name = "article_id")
     private Integer articleId;
 
     @Column(name = "title")
     @NonNull
-    @Length(min=5)
+    @Length(min = 5)
     private String title;
 
     @Column(name = "date_of_create")
@@ -40,7 +40,7 @@ public class Article {
 
     @Column(name = "article")
     @NonNull
-    @Length(min=10)
+    @Length(min = 10)
     private String articleText;
 
     @NonNull

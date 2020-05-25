@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Objects;
 import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -53,7 +54,6 @@ class ArticleControllerTest {
     }
 
 
-
     @Test
     void getArticles() {
         int page = 0;
@@ -64,6 +64,7 @@ class ArticleControllerTest {
         assertThat(((int) articleController.list(0, 10).get().count()), is(0));
         Mockito.verify(articleService, Mockito.times(1)).getArticlesPage(pageRequest);
     }
+
     @Test
     void getArticlesById() {
         int page = 0;

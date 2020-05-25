@@ -24,6 +24,9 @@ public class UserController {
 
     private UserService userService;
 
+    private static final String idErr = "User with id ";
+    private static final String notExistErr = " does not exist.";
+
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -46,24 +49,25 @@ public class UserController {
     }
 
     @DeleteMapping("deleteUser/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable int id){
+    public ResponseEntity<User> deleteUser(@PathVariable int id) {
 
         Optional<User> user = userService.getById(id);
 
-        if(!user.isPresent()){
-            log.error("User with id" + id + " does not exist.");
+        if (!user.isPresent()) {
+            log.error(idErr + id + notExistErr);
             return ResponseEntity.notFound().build();
         }
         userService.deleteUser(id);
         return ResponseEntity.ok(user.get());
     }
+
     @GetMapping("getUserById/{userId}")
-    public ResponseEntity<User> userById(@PathVariable  int userId){
+    public ResponseEntity<User> userById(@PathVariable int userId) {
 
         Optional<User> user = userService.getById(userId);
 
-        if(!user.isPresent()){
-            log.error("User with id" + userId + " does not exist.");
+        if (!user.isPresent()) {
+            log.error(idErr + userId + notExistErr);
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(user.get());

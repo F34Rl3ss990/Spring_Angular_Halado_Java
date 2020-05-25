@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
 import {UserService} from "../user.service";
-import { PageEvent } from '@angular/material/paginator';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-users-get',
@@ -16,25 +16,29 @@ export class UsersGetComponent implements OnInit {
   totalElements: number = 0;
   loading: boolean;
 
-  constructor(private us: UserService, private router: Router) { }
+
+  constructor(private us: UserService, private router: Router) {
+  }
 
   public ngOnInit(): void {
     this.getList({page: "0", size: "10"});
   }
 
-  deleteUser(id){
-    this.us.deleteUser(id).subscribe(res => {});
-    this.router.navigate(['successful-user-delete']);
+  deleteUser(id) {
+    this.us.deleteUser(id).subscribe(res => {
+    });
+    this.router.navigate(['successful-user-delete', id]);
   }
+
   private getList(req) {
     this.loading = true;
     this.us.getUsers(req).subscribe(data => {
       this.users = data['content'];
-        this.totalElements = data['totalElements'];
-        this.loading = false;
-      }, error => {
-        this.loading = false;
-      });
+      this.totalElements = data['totalElements'];
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+    });
   }
 
   nextPage(event: PageEvent) {

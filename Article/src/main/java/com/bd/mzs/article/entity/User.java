@@ -16,16 +16,16 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "user_id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Integer userID;
 
     @NonNull
-    @Length(min=3)
-    @Column (name= "first_name")
+    @Length(min = 3)
+    @Column(name = "first_name")
     private String firstName;
 
     @NonNull
-    @Length(min=3)
+    @Length(min = 3)
     @Column(name = "last_name")
     private String lastName;
 

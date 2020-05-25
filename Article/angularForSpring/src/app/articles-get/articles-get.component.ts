@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Article} from "../../models/article";
 import {ArticleService} from "../article.service";
 import {PageEvent} from "@angular/material/paginator";
@@ -15,7 +15,8 @@ export class ArticlesGetComponent implements OnInit {
   searchText: string;
   articles: Article[];
 
-  constructor(private as: ArticleService) { }
+  constructor(private as: ArticleService) {
+  }
 
   ngOnInit(): void {
     this.getList({page: "0", size: "10"});

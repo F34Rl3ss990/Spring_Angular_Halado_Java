@@ -40,7 +40,7 @@ public class ArticleController {
 
     @GetMapping("getArticles")
     public Page<Article> list(@RequestParam(name = "page", defaultValue = "0") int page,
-                           @RequestParam(name = "size", defaultValue = "10") int size) {
+                              @RequestParam(name = "size", defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Article> pageResult = articleService.getArticlesPage(pageRequest);
         List<Article> articles = pageResult
@@ -51,11 +51,11 @@ public class ArticleController {
 
     @GetMapping("getArticlesByUserID")
     public Page<Article> listById(@RequestParam(name = "page", defaultValue = "0") int page,
-                              @RequestParam(name = "size", defaultValue = "10") int size,
-                                @RequestParam(name = "id") int id) {
+                                  @RequestParam(name = "size", defaultValue = "10") int size,
+                                  @RequestParam(name = "id") int id) {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Article> pageResult = articleService.getArticlesPage(pageRequest);
-        Predicate<Article> contain = (Article item) -> item.getUser().getUserID()==id;
+        Predicate<Article> contain = (Article item) -> item.getUser().getUserID() == id;
         List<Article> articles = pageResult
                 .stream()
                 .filter(contain)
@@ -64,10 +64,10 @@ public class ArticleController {
     }
 
     @GetMapping("openArticle/{id}")
-    public ResponseEntity<Article> openArticle(@PathVariable int id){
+    public ResponseEntity<Article> openArticle(@PathVariable int id) {
         Optional<Article> article = articleService.getById(id);
 
-        if (!article.isPresent()){
+        if (!article.isPresent()) {
             log.error(idErr + id + notExistErr);
             return ResponseEntity.notFound().build();
         }
@@ -75,10 +75,10 @@ public class ArticleController {
     }
 
     @DeleteMapping("deleteArticle/{id}")
-    public ResponseEntity<Article> deleteArticle(@PathVariable int id){
+    public ResponseEntity<Article> deleteArticle(@PathVariable int id) {
 
         Optional<Article> article = articleService.getById(id);
-        if (!article.isPresent()){
+        if (!article.isPresent()) {
             log.error(idErr + id + notExistErr);
             return ResponseEntity.notFound().build();
         }
@@ -87,11 +87,10 @@ public class ArticleController {
     }
 
     @PutMapping("modifyArticle/{id}")
-    public ResponseEntity<Article> modifyArticle(@PathVariable (name="id") int id,
-                              @Valid @RequestBody ArticleDTO articleDTO){
+    public ResponseEntity<Article> modifyArticle(@PathVariable(name = "id") int id,
+                                                 @Valid @RequestBody ArticleDTO articleDTO) {
         Optional<Article> article = articleService.getById(id);
-
-        if (!article.isPresent()){
+        if (!article.isPresent()) {
             log.error(idErr + id + notExistErr);
             return ResponseEntity.notFound().build();
         }

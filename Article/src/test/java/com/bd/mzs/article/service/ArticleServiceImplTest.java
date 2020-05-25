@@ -4,7 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.mock;
 
-import com.bd.mzs.article.controller.ArticleController;
 import com.bd.mzs.article.controller.dto.ArticleDTO;
 import com.bd.mzs.article.entity.Article;
 import com.bd.mzs.article.entity.User;
@@ -24,7 +23,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,13 +39,12 @@ class ArticleServiceImplTest {
 
     @Mock
     private ArticleRepository articleRepository;
-
+/*
     @Mock
     private UserRepository userRepository;
 
-    @InjectMocks
-    private UserServiceImpl userService;
-
+   
+*/
     @InjectMocks
     private ArticleServiceImpl articleService;
 
@@ -84,7 +81,7 @@ class ArticleServiceImplTest {
         Mockito.when(articleRepository.findAll()).thenReturn(Arrays.asList(article1, article2));
         assertThat(articleService.getArticleList().size(), is(2));
         assertThat(articleService.getArticleList().get(0), is(article1));
-        assertThat(articleService.getArticleList().get(1),is(article2));
+        assertThat(articleService.getArticleList().get(1), is(article2));
         Mockito.verify(articleRepository, Mockito.times(3)).findAll();
     }
 

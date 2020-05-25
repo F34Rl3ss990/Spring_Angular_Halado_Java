@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ArticleService} from "../article.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -20,7 +20,7 @@ export class ArticleModifyComponent implements OnInit {
     this.createForm();
   }
 
-  createForm(){
+  createForm() {
     this.angForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       articleText: ['', [Validators.required, Validators.minLength(10)]],
@@ -30,20 +30,22 @@ export class ArticleModifyComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.articleId= params.id;
+      this.articleId = params.id;
     });
-    this.route.params.subscribe(params =>{
-      this.as.getArticlesById(params.id).subscribe(res =>{
+    this.route.params.subscribe(params => {
+      this.as.getArticlesById(params.id).subscribe(res => {
         this.articles = res;
         console.log(res)
       });
     });
 
   }
-  modifyArticle(title, article){
+
+  modifyArticle(title, article) {
     this.as.modifyArticle(title, article, this.articleId);
-    this.router.navigate(['successful-article-modify']);
+    this.router.navigate(['successful-article-modify', this.articleId]);
   }
+
   backClicked() {
     this._location.back();
   }

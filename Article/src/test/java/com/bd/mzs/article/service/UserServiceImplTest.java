@@ -3,7 +3,6 @@ package com.bd.mzs.article.service;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import com.bd.mzs.article.controller.UserController;
 import com.bd.mzs.article.controller.dto.UserDTO;
 import com.bd.mzs.article.entity.Article;
 import com.bd.mzs.article.entity.User;
@@ -22,7 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,13 +37,13 @@ class UserServiceImplTest {
 
     @InjectMocks
     private UserServiceImpl userService;
-
+/*
     @Mock
     private ArticleRepository articleRepository;
 
     @InjectMocks
     private ArticleServiceImpl articleService;
-
+*/
 
     @Before
     public void setUp() {

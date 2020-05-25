@@ -12,10 +12,10 @@ import org.hibernate.validator.constraints.Length;
 public class UserDTO {
 
     @NonNull
-    @Length(min=3)
+    @Length(min = 3)
     private String firstName;
     @NonNull
-    @Length(min=3)
+    @Length(min = 3)
     private String lastName;
 
 }

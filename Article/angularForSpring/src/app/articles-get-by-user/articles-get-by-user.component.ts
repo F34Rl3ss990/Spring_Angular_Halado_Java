@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Article} from "../../models/article";
 import {ArticleService} from "../article.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -19,20 +19,22 @@ export class ArticlesGetByUserComponent implements OnInit {
   user: any = {};
 
   constructor(private as: ArticleService, private us: UserService,
-              private router: Router, private route: ActivatedRoute) { }
+              private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
 
-    this.route.params.subscribe(params=> {
+    this.route.params.subscribe(params => {
       this.us.getUserById(params.id).subscribe(res => {
         this.user = res;
         console.log(res)
-        this.getList({page: "0", size: "10", id:this.user.userID});
+        this.getList({page: "0", size: "10", id: this.user.userID});
       });
     });
     console.log(this.user)
 
   }
+
   private getList(req) {
     this.loading = true;
     this.as.getArticlesByUserId(req).subscribe(data => {
@@ -44,16 +46,17 @@ export class ArticlesGetByUserComponent implements OnInit {
     });
   }
 
-
   nextPage(event: PageEvent) {
     const req = {};
     req['page'] = event.pageIndex.toString();
     req['size'] = event.pageSize.toString();
     this.getList(req);
   }
-  deleteArticle(id){
-    this.as.deleteArticle(id).subscribe(res=>{});
-    this.router.navigate(['successful-article-delete']);
+
+  deleteArticle(id) {
+    this.as.deleteArticle(id).subscribe(res => {
+    });
+    this.router.navigate(['successful-article-delete', id]);
   }
 
 }

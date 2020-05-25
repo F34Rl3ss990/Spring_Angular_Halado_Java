@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -84,7 +85,7 @@ class UserControllerTest {
     void userByIdWhenFound() {
         Mockito.when(userService.getById(1)).thenReturn(Optional.of(user1));
         ResponseEntity<User> u = userController.userById(1);
-        assertThat(u.getBody(), is(user1) );
+        assertThat(u.getBody(), is(user1));
     }
 
     @Test

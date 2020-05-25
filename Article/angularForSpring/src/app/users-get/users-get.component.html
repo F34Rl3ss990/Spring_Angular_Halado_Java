@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="form-group mb-4">
     <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search">
@@ -7,10 +6,25 @@
          *ngIf="(users | filter: searchText).length >0; else noResults">
     <thead>
     <tr class="mat-header-row">
-      <th scope="col">#</th>
-      <th scope="col">ID</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
+      <th [mdbTableSort]="users" sortBy="#" scope="col">#</th>
+      <th [mdbTableSort]="users" sortBy="userID" scope="col">ID
+        <div class="float-right">
+          <div class="triangle-up"></div>
+          <div class="triangle-down"></div>
+        </div>
+      </th>
+      <th [mdbTableSort]="users" sortBy="firstName" scope="col">First Name
+        <div class="float-right">
+          <div class="triangle-up"></div>
+          <div class="triangle-down"></div>
+        </div>
+      </th>
+      <th [mdbTableSort]="users" sortBy="lastName" scope="col">Last Name
+        <div class="float-right">
+          <div class="triangle-up"></div>
+          <div class="triangle-down"></div>
+        </div>
+      </th>
       <th scope="col" colspan="3">Action</th>
     </tr>
     </thead>
@@ -20,13 +34,16 @@
       <td>{{ user.userID }}</td>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>
-      <td><a [routerLink]="['/article-add', user.userID]"   class="btn btn-primary" style="color:white">Add Article</a></td>
-      <td><a [routerLink]="['/articles-get-by-user', user.userID]"   class="btn btn-primary" style="color:white">View Articles</a></td>
-      <td><a (click) = "deleteUser(user.userID)"   class="btn btn-danger" style="button-size: 50%;color:white">Delete</a></td>
+      <td><a [routerLink]="['/article-add', user.userID]" class="btn btn-primary" style="color:white">Add Article</a>
+      </td>
+      <td><a [routerLink]="['/articles-get-by-user', user.userID]" class="btn btn-primary" style="color:white">View
+        Articles</a></td>
+      <td><a (click)="deleteUser(user.userID)" class="btn btn-danger" style="button-size: 50%;color:white">Delete</a>
+      </td>
     </tr>
     </tbody>
   </table>
-  <mat-paginator #paginator  [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+  <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
                  (page)="nextPage($event)">
   </mat-paginator>
   <ng-template #noResults>
