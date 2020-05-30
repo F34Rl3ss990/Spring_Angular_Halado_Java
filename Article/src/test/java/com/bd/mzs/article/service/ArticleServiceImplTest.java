@@ -8,7 +8,6 @@ import com.bd.mzs.article.controller.dto.ArticleDTO;
 import com.bd.mzs.article.entity.Article;
 import com.bd.mzs.article.entity.User;
 import com.bd.mzs.article.repository.ArticleRepository;
-import com.bd.mzs.article.repository.UserRepository;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,7 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,23 +28,19 @@ import java.util.Optional;
 class ArticleServiceImplTest {
 
     private static Article article1;
-    private static Article article2;
-    private static Article article3;
     private static ArticleDTO articleDto;
 
     private static User user1;
-    private static User user2;
+
 
     @Mock
     private ArticleRepository articleRepository;
-/*
-    @Mock
-    private UserRepository userRepository;
 
-   
-*/
     @InjectMocks
     private ArticleServiceImpl articleService;
+
+    @InjectMocks
+    private UserServiceImpl userService;
 
 
     @Before
@@ -57,10 +51,7 @@ class ArticleServiceImplTest {
     @BeforeAll
     public static void init() {
         user1 = new User("aaaaaa", "aaaaaaaaaa");
-        user2 = new User("bbbbbb", "bbbbbbbbbbb");
         article1 = new Article("aaaaaa", "aaaaaaaaaaaaaaaaa", user1);
-        article2 = new Article("bbbbbb", "bbbbbbbbbbbbbbb", user1);
-        article3 = new Article("cccccccccc", "cccccccccccccccc", user2);
         articleDto = new ArticleDTO("aaaaaa", "aaaaaaaaaaaaaaaaa", 1);
     }
 
@@ -71,35 +62,30 @@ class ArticleServiceImplTest {
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Article> articles = mock(Page.class);
         Mockito.when(articleRepository.findAll(org.mockito.Matchers.isA(PageRequest.class))).thenReturn(articles);
-        assertThat(((int) articleService.getArticlesPage(pageRequest).get().count()), is(0));
+        assertThat(((int) articleService.getArticlesPage(0,10).get().count()), is(0));
+        Mockito.verify(articleRepository, Mockito.times(1)).findAll(pageRequest);
+    }
+
+    @Test
+    void getArticlesPageById() {
+        int page = 0;
+        int size = 10;
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Article> articles = mock(Page.class);
+        Mockito.when(articleRepository.findAll(org.mockito.Matchers.isA(PageRequest.class))).thenReturn(articles);
+        assertThat(((int) articleService.getArticlesPageById(0,10, 10).get().count()), is(0));
         Mockito.verify(articleRepository, Mockito.times(1)).findAll(pageRequest);
     }
 
 
     @Test
-    void getArticleListWhenRecord() {
-        Mockito.when(articleRepository.findAll()).thenReturn(Arrays.asList(article1, article2));
-        assertThat(articleService.getArticleList().size(), is(2));
-        assertThat(articleService.getArticleList().get(0), is(article1));
-        assertThat(articleService.getArticleList().get(1), is(article2));
-        Mockito.verify(articleRepository, Mockito.times(3)).findAll();
-    }
-
-    @Test
-    void getArticleListWhenNoRecord() {
-        Mockito.when(articleRepository.findAll()).thenReturn(Arrays.asList());
-        assertThat(articleService.getArticleList().size(), is(0));
-        Mockito.verify(articleRepository, Mockito.times(1)).findAll();
-    }
-/*
-    @Test
     void saveArticle() {
         Mockito.when(articleRepository.save(article1)).thenReturn(article1);
-        Mockito.when(userRepository.findById(1)).thenReturn(Optional.ofNullable(user1));
         Mockito.when(userService.getById(1)).thenReturn(Optional.ofNullable(user1));
+        articleService.saveArticle(articleDto);
         assertThat(articleService.saveArticle(articleDto), is(article1));
         Mockito.verify(articleRepository, Mockito.times(1)).save(article1);
-    }*/
+    }
 
     @Test
     void modifyArticle() {
@@ -126,4 +112,6 @@ class ArticleServiceImplTest {
         articleService.deleteArticle(article1);
         Mockito.verify(articleRepository, Mockito.times(1)).delete(article1);
     }
+
+
 }

@@ -4,7 +4,7 @@ export interface User{
 }
 
 export interface user {
-  userID: Number;
-  firstName: String;
-  lastName: String;
+  user_id: Number;
+  first_name: String;
+  last_name: String;
 }

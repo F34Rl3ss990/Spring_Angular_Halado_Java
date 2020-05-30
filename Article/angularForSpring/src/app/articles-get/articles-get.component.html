@@ -14,13 +14,13 @@
           <div class="triangle-down"></div>
         </div>
       </th>
-      <th [mdbTableSort]="articles" sortBy="dateOfCreate">Date of Create
+      <th [mdbTableSort]="articles" sortBy="date_of_create">Date of Create
         <div class="float-right">
           <div class="triangle-up"></div>
           <div class="triangle-down"></div>
         </div>
       </th>
-      <th [mdbTableSort]="articles" sortBy="dateOfModify">Date of Modify
+      <th [mdbTableSort]="articles" sortBy="date_of_modify">Date of Modify
         <div class="float-right">
           <div class="triangle-up"></div>
           <div class="triangle-down"></div>
@@ -32,12 +32,12 @@
     <tbody>
     <tr class="mat-row" *ngFor="let article of articles | filter: searchText; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td>{{ article.user.firstName }}</td>
-      <td>{{ article.user.lastName }}</td>
+      <td>{{ article.user.first_name }}</td>
+      <td>{{ article.user.last_name }}</td>
       <td>{{ article.title }}</td>
-      <td>{{ article.dateOfCreate | date:'yyyy-MM-dd hh:mm'  }}</td>
-      <td>{{ article.dateOfModify | date:'yyyy-MM-dd hh:mm'  }}</td>
-      <td><a [routerLink]="['/article-reader', article.articleId]" class="btn btn-primary" style="color:white">Open
+      <td>{{ article.date_of_create | date:'yyyy-MM-dd hh:mm'  }}</td>
+      <td>{{ article.date_of_modify | date:'yyyy-MM-dd hh:mm'  }}</td>
+      <td><a [routerLink]="['/article-reader', article.article_id]" class="btn btn-primary" style="color:white">Open
         Article</a></td>
     </tr>
     </tbody>

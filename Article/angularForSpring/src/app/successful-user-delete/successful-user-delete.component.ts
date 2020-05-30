@@ -9,15 +9,14 @@ import {UserService} from "../user.service";
 })
 export class SuccessfulUserDeleteComponent implements OnInit {
 
-  userId: number;
+  user_id: number;
 
-  constructor(private router: Router, private route: ActivatedRoute,
-              private us: UserService) {
+  constructor(private router: Router, private route: ActivatedRoute){
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.userId = params.id;
+      this.user_id = params.id;
     });
     setTimeout(() => {
       this.router.navigate(['users-get']);

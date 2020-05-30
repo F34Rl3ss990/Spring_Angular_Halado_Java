@@ -21,7 +21,7 @@ export class SuccessfulArticleModifyComponent implements OnInit {
         this.article = res;
       });
       setTimeout(() => {
-        this.router.navigate(['articles-get-by-user/', this.article.user.userID]);
+        this.router.navigate(['articles-get-by-user/', this.article.user.user_id]);
       }, 5000);  //5s
     });
   }

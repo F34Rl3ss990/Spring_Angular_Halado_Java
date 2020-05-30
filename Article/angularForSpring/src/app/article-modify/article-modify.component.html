@@ -4,7 +4,7 @@
       <form [formGroup]="angForm" novalidate>
         <div class="form-group">
           <label class="col-md-4">
-            First name
+            Title
           </label>
           <input type="text" class="form-control" placeholder="Type the title..."
                  formControlName="title" #title [(ngModel)]="articles.title"/>
@@ -23,21 +23,21 @@
             Article
           </label>
           <input type="text" class="form-control" placeholder="Type the article..."
-                 formControlName="articleText" #articleText [(ngModel)]="articles.articleText"/>
+                 formControlName="article_text" #article_text [(ngModel)]="articles.article_text"/>
         </div>
-        <div *ngIf="angForm.controls['articleText'].invalid && (angForm.controls['articleText'].dirty ||
-      angForm.controls['articleText'].touched)" class="alert alert-danger">
-          <div *ngIf="angForm.controls['articleText'].errors.required">
+        <div *ngIf="angForm.controls['article_text'].invalid && (angForm.controls['article_text'].dirty ||
+      angForm.controls['article_text'].touched)" class="alert alert-danger">
+          <div *ngIf="angForm.controls['article_text'].errors.required">
             Article is required.
           </div>
-          <div *ngIf="angForm.controls['articleText'].errors.minlength">
+          <div *ngIf="angForm.controls['article_text'].errors.minlength">
             Article must be at least 10 character long.
           </div>
         </div>
 
         <div class="form-group" style="margin-bottom: 0px">
           <button (click)="backClicked()" style="margin-right:10px" class="btn btn-primary" type="button">Back</button>
-          <button (click)="modifyArticle(title.value, articleText.value)"
+          <button (click)="modifyArticle(title.value, article_text.value)"
                   type="submit" [disabled]="angForm.pristine || angForm.invalid"
                   class="btn btn-primary">Modify Article
           </button>

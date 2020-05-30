@@ -6,8 +6,6 @@ import com.bd.mzs.article.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +14,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @Slf4j
@@ -40,12 +37,12 @@ public class UserController {
     @GetMapping("getUsers")
     public Page<User> list(@RequestParam(name = "page", defaultValue = "0") int page,
                            @RequestParam(name = "size", defaultValue = "10") int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        Page<User> pageResult = userService.getUsersPage(pageRequest);
-        List<User> users = pageResult
-                .stream()
-                .collect(toList());
-        return new PageImpl<>(users, pageRequest, pageResult.getTotalElements());
+     return userService.getUsersPage(page, size);
+    }
+
+    @GetMapping("getUserTree")
+    public List<UserDTO> listUser() {
+         return userService.getUsersTree();
     }
 
     @DeleteMapping("deleteUser/{id}")

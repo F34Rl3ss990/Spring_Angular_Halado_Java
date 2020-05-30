@@ -13,14 +13,18 @@ export class UserService {
 
   addUser(firstName, lastName) {
     const obj = {
-      firstName: firstName,
-      lastName: lastName
+      first_name: firstName,
+      last_name: lastName
     }
     return this.http.post(`${this.uri}addUser`, obj);
   }
 
   getUserById(req) {
     return this.http.get(`${this.uri}getUserById/${req}`)
+  }
+
+  getUsersList(){
+    return this.http.get(`${this.uri}getUserTree`)
   }
 
   getUsers(req) {

@@ -12,7 +12,7 @@ import {Location} from '@angular/common';
 export class ArticleAddComponent implements OnInit {
 
   angForm: FormGroup;
-  userId: Number;
+  user_id: Number;
   article: any = {};
 
   constructor(private fb: FormBuilder, private as: ArticleService,
@@ -24,20 +24,20 @@ export class ArticleAddComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
-      articleText: ['', [Validators.required, Validators.minLength(10)]],
+      article_text: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.userId = params.id;
+      this.user_id = params.id;
     });
   }
 
   addArticle(title, article) {
-    this.as.addArticle(title, article, this.userId).subscribe(res => {
+    this.as.addArticle(title, article, this.user_id).subscribe(res => {
       this.article = res;
-      this.router.navigate(['successful-article-add/', this.article.articleId]);
+      this.router.navigate(['successful-article-add/', this.user_id]);
     });
   }
 

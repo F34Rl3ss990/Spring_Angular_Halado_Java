@@ -4,11 +4,11 @@ export interface Article{
 }
 
 export interface article {
-  articleId: Number;
+  article_id: Number;
   title: String;
-  dateOfCreate: Date;
-  dateOfModify: Date;
-  articleText: String;
-  userId: Number;
+  date_of_create: Date;
+  date_of_modify: Date;
+  article_text: String;
+  user_id: Number;
 }
 

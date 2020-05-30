@@ -1,8 +1,8 @@
 <div class="container">
   <p style="text-align: center;font-size:25px"><b>{{article.title}}</b></p>
   <div class="row">
-    <div class="col"><p style="text-align: left"><b>{{article.user.firstName}} {{article.user.lastName}}</b></p></div>
-    <div class="col"><p style="text-align: right">{{article.dateOfCreate | date:'yyyy-MM-dd hh:mm'  }}</p></div>
+    <div class="col"><p style="text-align: left"><b>{{article.user.first_name}} {{article.user.last_name}}</b></p></div>
+    <div class="col"><p style="text-align: right">{{article.date_of_create | date:'yyyy-MM-dd hh:mm'  }}</p></div>
   </div>
-  <div><p style="font-size: 20px; text-align: center">{{article.articleText}}</p></div>
+  <div><p style="font-size: 20px; text-align: center">{{article.article_text}}</p></div>
 </div>

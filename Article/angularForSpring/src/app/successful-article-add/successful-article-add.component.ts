@@ -11,15 +11,11 @@ export class SuccessfulArticleAddComponent implements OnInit {
 
   article: any = {};
 
-  constructor(private router: Router, private route: ActivatedRoute,
-              private as: ArticleService) {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.as.getArticlesById(params.id).subscribe(res => {
-        this.article = res;
-      });
       setTimeout(() => {
         this.router.navigate(['articles-get-by-user/', params.id]);
       }, 5000);  //5s

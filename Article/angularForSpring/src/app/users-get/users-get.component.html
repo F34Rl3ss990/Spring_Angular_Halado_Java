@@ -7,19 +7,19 @@
     <thead>
     <tr class="mat-header-row">
       <th [mdbTableSort]="users" sortBy="#" scope="col">#</th>
-      <th [mdbTableSort]="users" sortBy="userID" scope="col">ID
+      <th [mdbTableSort]="users" sortBy="user_id" scope="col">ID
         <div class="float-right">
           <div class="triangle-up"></div>
           <div class="triangle-down"></div>
         </div>
       </th>
-      <th [mdbTableSort]="users" sortBy="firstName" scope="col">First Name
+      <th [mdbTableSort]="users" sortBy="first_name" scope="col">First Name
         <div class="float-right">
           <div class="triangle-up"></div>
           <div class="triangle-down"></div>
         </div>
       </th>
-      <th [mdbTableSort]="users" sortBy="lastName" scope="col">Last Name
+      <th [mdbTableSort]="users" sortBy="last_name" scope="col">Last Name
         <div class="float-right">
           <div class="triangle-up"></div>
           <div class="triangle-down"></div>
@@ -31,14 +31,14 @@
     <tbody>
     <tr class="mat-row" *ngFor="let user of users | filter: searchText; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td>{{ user.userID }}</td>
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName }}</td>
-      <td><a [routerLink]="['/article-add', user.userID]" class="btn btn-primary" style="color:white">Add Article</a>
+      <td>{{ user.user_id }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td><a [routerLink]="['/article-add', user.user_id]" class="btn btn-primary" style="color:white">Add Article</a>
       </td>
-      <td><a [routerLink]="['/articles-get-by-user', user.userID]" class="btn btn-primary" style="color:white">View
+      <td><a [routerLink]="['/articles-get-by-user', user.user_id]" class="btn btn-primary" style="color:white">View
         Articles</a></td>
-      <td><a (click)="deleteUser(user.userID)" class="btn btn-danger" style="button-size: 50%;color:white">Delete</a>
+      <td><a (click)="deleteUser(user.user_id)" class="btn btn-danger" style="button-size: 50%;color:white">Delete</a>
       </td>
     </tr>
     </tbody>

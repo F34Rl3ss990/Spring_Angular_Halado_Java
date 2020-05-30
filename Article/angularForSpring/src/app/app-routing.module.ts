@@ -13,6 +13,7 @@ import {SuccessfulArticleDeleteComponent} from "./successful-article-delete/succ
 import {SuccessfulArticleModifyComponent} from "./successful-article-modify/successful-article-modify.component";
 import {SuccessfulUserAddComponent} from "./successful-user-add/successful-user-add.component";
 import {SuccessfulUserDeleteComponent} from "./successful-user-delete/successful-user-delete.component";
+import {TreeViewComponent} from "./tree-view/tree-view.component";
 
 
 const routes: Routes = [
@@ -28,7 +29,8 @@ const routes: Routes = [
   {path: 'successful-article-delete/:id', component: SuccessfulArticleDeleteComponent},
   {path: 'successful-article-modify/:id', component: SuccessfulArticleModifyComponent},
   {path: 'successful-user-add/:id', component: SuccessfulUserAddComponent},
-  {path: 'successful-user-delete/:id', component: SuccessfulUserDeleteComponent}
+  {path: 'successful-user-delete/:id', component: SuccessfulUserDeleteComponent},
+  {path: 'tree-view', component: TreeViewComponent}
 ];
 
 @NgModule({

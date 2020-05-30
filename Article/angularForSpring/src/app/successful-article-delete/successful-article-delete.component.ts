@@ -8,16 +8,16 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class SuccessfulArticleDeleteComponent implements OnInit {
 
-  articleId: number;
+  article_id: number;
 
   constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.articleId = params.id;
+      this.article_id = params.id;
       setTimeout(() => {
-        this.router.navigate(['articles-get-by-user/', params.id]);
+        this.router.navigate(['users-get/',]);
       }, 5000);  //5s
     });
 

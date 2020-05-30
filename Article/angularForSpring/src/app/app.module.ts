@@ -27,6 +27,8 @@ import {SuccessfulUserAddComponent} from './successful-user-add/successful-user-
 import {SuccessfulArticleAddComponent} from './successful-article-add/successful-article-add.component';
 import {SuccessfulArticleModifyComponent} from './successful-article-modify/successful-article-modify.component';
 import {MDBBootstrapModule} from "angular-bootstrap-md";
+import {TreeViewComponent} from "./tree-view/tree-view.component";
+import { NgJsonEditorModule } from 'ang-jsoneditor'
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import {MDBBootstrapModule} from "angular-bootstrap-md";
     SuccessfulUserDeleteComponent,
     SuccessfulUserAddComponent,
     SuccessfulArticleAddComponent,
-    SuccessfulArticleModifyComponent
+    SuccessfulArticleModifyComponent,
+    TreeViewComponent
   ],
   exports: [AppComponent],
   imports: [
@@ -57,7 +60,8 @@ import {MDBBootstrapModule} from "angular-bootstrap-md";
     ReactiveFormsModule,
     HttpClientModule,
     MatPaginatorModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    NgJsonEditorModule
   ],
   providers: [SlimLoadingBarService, UserService, ArticleService],
   bootstrap: [AppComponent]

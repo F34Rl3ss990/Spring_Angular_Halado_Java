@@ -6,17 +6,11 @@ import com.bd.mzs.article.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
-
-import static java.util.stream.Collectors.toList;
 
 
 @RestController
@@ -41,26 +35,14 @@ public class ArticleController {
     @GetMapping("getArticles")
     public Page<Article> list(@RequestParam(name = "page", defaultValue = "0") int page,
                               @RequestParam(name = "size", defaultValue = "10") int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Article> pageResult = articleService.getArticlesPage(pageRequest);
-        List<Article> articles = pageResult
-                .stream()
-                .collect(toList());
-        return new PageImpl<>(articles, pageRequest, pageResult.getTotalElements());
+        return articleService.getArticlesPage(page, size);
     }
 
     @GetMapping("getArticlesByUserID")
     public Page<Article> listById(@RequestParam(name = "page", defaultValue = "0") int page,
                                   @RequestParam(name = "size", defaultValue = "10") int size,
                                   @RequestParam(name = "id") int id) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Article> pageResult = articleService.getArticlesPage(pageRequest);
-        Predicate<Article> contain = (Article item) -> item.getUser().getUserID() == id;
-        List<Article> articles = pageResult
-                .stream()
-                .filter(contain)
-                .collect(toList());
-        return new PageImpl<>(articles, pageRequest, pageResult.getTotalElements());
+        return articleService.getArticlesPageById(page, size, id);
     }
 
     @GetMapping("openArticle/{id}")
@@ -95,8 +77,7 @@ public class ArticleController {
             return ResponseEntity.notFound().build();
         }
 
-        article.get().setTitle(articleDTO.getTitle());
-        article.get().setArticleText(articleDTO.getArticleText());
+        articleService.setTitleAndText(articleDTO, article);
 
         return ResponseEntity.ok(articleService.modifyArticle(article.get()));
     }

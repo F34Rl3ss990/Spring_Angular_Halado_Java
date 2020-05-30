@@ -1,6 +1,6 @@
 <div class="container">
   <p style="text-align: center;font-size: 30px;padding-top:5px;">Articles of:
-    <b>{{ user.firstName }} {{user.lastName}}</b></p>
+    <b>{{ user.first_name }} {{user.last_name}}</b></p>
   <div class="form-group mb-4">
     <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search">
   </div>
@@ -9,7 +9,7 @@
     <thead>
     <tr class="mat-header-row">
       <th scope="col">#</th>
-      <th [mdbTableSort]="articles" sortBy="articleId" scope="col">ArticleID
+      <th [mdbTableSort]="articles" sortBy="article_id" scope="col">ArticleID
         <div class="float-right">
           <div class="triangle-up"></div>
           <div class="triangle-down"></div>
@@ -21,13 +21,13 @@
           <div class="triangle-down"></div>
         </div>
       </th>
-      <th [mdbTableSort]="articles" sortBy="dateOfCreate" scope="col">Date of Create
+      <th [mdbTableSort]="articles" sortBy="date_of_create" scope="col">Date of Creates
         <div class="float-right">
           <div class="triangle-up"></div>
           <div class="triangle-down"></div>
         </div>
       </th>
-      <th [mdbTableSort]="articles" sortBy="dateOfModify" scope="col">Date of Modify
+      <th [mdbTableSort]="articles" sortBy="date_of_modify" scope="col">Date of Modify
         <div class="float-right">
           <div class="triangle-up"></div>
           <div class="triangle-down"></div>
@@ -39,15 +39,15 @@
     <tbody>
     <tr class="mat-row" *ngFor="let article of articles | filter: searchText; let i = index">
       <th scope="row">{{i + 1}}</th>
-      <td>{{ article.articleId }}</td>
+      <td>{{ article.article_id }}</td>
       <td>{{ article.title }}</td>
-      <td>{{ article.dateOfCreate | date:'yyyy-MM-dd hh:mm'  }} </td>
-      <td>{{ article.dateOfModify | date:'yyyy-MM-dd hh:mm'  }} </td>
-      <td><a [routerLink]="['/article-reader', article.articleId]" class="btn btn-primary" style="color:white">Open
+      <td>{{ article.date_of_create | date:'yyyy-MM-dd hh:mm'  }} </td>
+      <td>{{ article.date_of_modify | date:'yyyy-MM-dd hh:mm'  }} </td>
+      <td><a [routerLink]="['/article-reader', article.article_id]" class="btn btn-primary" style="color:white">Open
         Article</a></td>
-      <td><a [routerLink]="['/article-modify', article.articleId]" class="btn btn-primary" style="color:white">Modify
+      <td><a [routerLink]="['/article-modify', article.article_id]" class="btn btn-primary" style="color:white">Modify
         Article</a></td>
-      <td><a (click)="deleteArticle(article.articleId)" class="btn btn-danger" style="color:white">Delete Article</a>
+      <td><a (click)="deleteArticle(article.article_id)" class="btn btn-danger" style="color:white">Delete Article</a>
       </td>
     </tr>
     </tbody>

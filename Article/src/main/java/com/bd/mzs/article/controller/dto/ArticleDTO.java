@@ -14,12 +14,12 @@ public class ArticleDTO {
     @NonNull
     @Length(min = 5)
     private String title;
-    private Date dateOfCreate;
-    private Date dateOfModify;
+    private Date date_of_create;
+    private Date date_of_modify;
     @NonNull
     @Length(min = 10)
-    private String articleText;
+    private String article_text;
     @NonNull
-    private int userID;
+    private int user_id;
 
 }

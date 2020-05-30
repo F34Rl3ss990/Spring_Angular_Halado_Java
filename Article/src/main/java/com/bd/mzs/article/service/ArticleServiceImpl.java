@@ -6,11 +6,15 @@ import com.bd.mzs.article.entity.User;
 import com.bd.mzs.article.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -29,13 +33,25 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Page<Article> getArticlesPage(PageRequest pageRequest) {
-        return articleRepository.findAll(pageRequest);
+    public Page<Article> getArticlesPage(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Article> pageResult = articleRepository.findAll(pageRequest);
+        List<Article> articles = pageResult
+                .stream()
+                .collect(toList());
+        return new PageImpl<>(articles, pageRequest, pageResult.getTotalElements());
     }
 
     @Override
-    public List<Article> getArticleList() {
-        return articleRepository.findAll();
+    public Page<Article> getArticlesPageById(int page, int size, int id) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Article> pageResult = articleRepository.findAll(pageRequest);
+        Predicate<Article> contain = (Article item) -> item.getUser().getUser_id() == id;
+        List<Article> articles = pageResult
+                .stream()
+                .filter(contain)
+                .collect(toList());
+        return new PageImpl<>(articles, pageRequest, pageResult.getTotalElements());
     }
 
     @Override
@@ -65,11 +81,19 @@ public class ArticleServiceImpl implements ArticleService {
 
     private Article convertArticleDTOtoArticle(ArticleDTO articleDTO) {
         Article article = new Article();
-        article.setArticleText(articleDTO.getArticleText());
+        article.setArticle_text(articleDTO.getArticle_text());
         article.setTitle(articleDTO.getTitle());
-        Optional<User> article1 = userService.getById(articleDTO.getUserID());
+        Optional<User> article1 = userService.getById(articleDTO.getUser_id());
         article1.ifPresent(article::setUser);
         return article;
+    }
+
+    @Override
+    public void setTitleAndText(ArticleDTO articleDTO, Optional<Article> article){
+        if (article.isPresent()) {
+            article.get().setTitle(articleDTO.getTitle());
+            article.get().setArticle_text(articleDTO.getArticle_text());
+        }
     }
 
 }

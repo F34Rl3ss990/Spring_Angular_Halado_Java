@@ -11,7 +11,7 @@ import {Location} from "@angular/common";
 })
 export class ArticleModifyComponent implements OnInit {
   angForm: FormGroup;
-  articleId: Number;
+  article_id: Number;
   articles: any = {};
 
   constructor(private fb: FormBuilder, private as: ArticleService,
@@ -23,27 +23,26 @@ export class ArticleModifyComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
-      articleText: ['', [Validators.required, Validators.minLength(10)]],
+      article_text: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
 
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.articleId = params.id;
+      this.article_id = params.id;
     });
     this.route.params.subscribe(params => {
       this.as.getArticlesById(params.id).subscribe(res => {
         this.articles = res;
-        console.log(res)
       });
     });
 
   }
 
   modifyArticle(title, article) {
-    this.as.modifyArticle(title, article, this.articleId);
-    this.router.navigate(['successful-article-modify', this.articleId]);
+    this.as.modifyArticle(title, article, this.article_id);
+    this.router.navigate(['successful-article-modify', this.article_id]);
   }
 
   backClicked() {

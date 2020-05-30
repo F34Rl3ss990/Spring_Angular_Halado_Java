@@ -27,12 +27,9 @@ export class ArticlesGetByUserComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.us.getUserById(params.id).subscribe(res => {
         this.user = res;
-        console.log(res)
-        this.getList({page: "0", size: "10", id: this.user.userID});
+        this.getList({page: "0", size: "10", id: this.user.user_id});
       });
     });
-    console.log(this.user)
-
   }
 
   private getList(req) {

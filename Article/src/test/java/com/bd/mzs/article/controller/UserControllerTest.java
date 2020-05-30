@@ -15,10 +15,11 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -50,13 +51,10 @@ class UserControllerTest {
 
     @Test
     void getUsers() {
-        int page = 0;
-        int size = 10;
-        PageRequest pageRequest = PageRequest.of(page, size);
         Page<User> users = Mockito.mock(Page.class);
-        Mockito.when(userService.getUsersPage(org.mockito.Matchers.isA(PageRequest.class))).thenReturn(users);
+        Mockito.when(userService.getUsersPage(0,10)).thenReturn(users);
         assertThat(((int) userController.list(0, 10).get().count()), is(0));
-        Mockito.verify(userService, Mockito.times(1)).getUsersPage(pageRequest);
+        Mockito.verify(userService, Mockito.times(1)).getUsersPage(0,10);
     }
 
     @Test
@@ -65,6 +63,13 @@ class UserControllerTest {
         Mockito.verify(userService, Mockito.times(1)).saveUser(userDTO1);
     }
 
+    @Test
+    void listUser(){
+        List<UserDTO> ar = new ArrayList<>();
+        Mockito.when(userService.getUsersTree()).thenReturn(ar);
+        userController.listUser();
+        Mockito.verify(userService, Mockito.times(1)).getUsersTree();
+    }
 
     @Test
     void deleteUserWhenFound() {

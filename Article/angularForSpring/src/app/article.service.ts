@@ -14,8 +14,8 @@ export class ArticleService {
   addArticle(title, article, userID) {
     const obj = {
       title: title,
-      articleText: article,
-      userID: userID
+      article_text: article,
+      user_id: userID
     }
     return this.http.post(`${this.uri}addArticle`, obj);
   }
@@ -43,8 +43,8 @@ export class ArticleService {
   modifyArticle(title, article, id) {
     const obj = {
       title: title,
-      articleText: article,
-      articleId: id
+      article_text: article,
+      article_id: id
     }
     this.http.put(`${this.uri}modifyArticle/${id}`, obj).subscribe(
       res => console.log('Done'));
