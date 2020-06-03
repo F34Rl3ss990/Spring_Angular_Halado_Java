@@ -28,8 +28,8 @@ public class ArticleController {
     }
 
     @PostMapping("addArticle")
-    public ResponseEntity<Article> addArticle(@Valid @RequestBody ArticleDTO articleDTO) {
-        return ResponseEntity.ok(articleService.saveArticle(articleDTO));
+    public void addArticle(@Valid @RequestBody ArticleDTO articleDTO) {
+       articleService.saveArticle(articleDTO);
     }
 
     @GetMapping("getArticles")

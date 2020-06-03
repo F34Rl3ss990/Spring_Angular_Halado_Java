@@ -44,7 +44,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getUsersTree(){
         List<UserDTO> ar;
-        ar = userRepository.findAll().stream().map(user -> UserDTO.builder().last_name(user.getLast_name()).first_name(user.getFirst_name()).user_id(user.getUser_id()).articles(user.getArticles()).build()).collect(Collectors.toList());
+        ar = userRepository.findAll().stream().map(user -> UserDTO.builder().last_name(user.getLast_name())
+                .first_name(user.getFirst_name()).user_id(user.getUser_id()).articles(user.getArticles()).build()).collect(Collectors.toList());
         return ar;
     }
 

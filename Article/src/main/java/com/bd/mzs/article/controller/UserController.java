@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping("addUser")
-    public ResponseEntity<User> addUser(@Valid @RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userService.saveUser(userDTO));
+    public void addUser(@Valid @RequestBody UserDTO userDTO) {
+        userService.saveUser(userDTO);
     }
 
     @GetMapping("getUsers")

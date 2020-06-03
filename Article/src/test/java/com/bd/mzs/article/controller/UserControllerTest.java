@@ -4,17 +4,15 @@ package com.bd.mzs.article.controller;
 import com.bd.mzs.article.controller.dto.UserDTO;
 import com.bd.mzs.article.entity.User;
 import com.bd.mzs.article.service.UserService;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -26,7 +24,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 class UserControllerTest {
 
     private static User user1;
@@ -38,28 +35,28 @@ class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @BeforeAll
     public static void init() {
-        user1 = new User("aaaaaa", "aaaaaaaaaa");
+        user1 = new User(1,"aaaaaa", "aaaaaaaaaa");
         userDTO1 = new UserDTO("aaaaaa", "aaaaaaaaaa");
     }
 
     @Test
     void getUsers() {
-        Page<User> users = Mockito.mock(Page.class);
-        Mockito.when(userService.getUsersPage(0,10)).thenReturn(users);
-        assertThat(((int) userController.list(0, 10).get().count()), is(0));
-        Mockito.verify(userService, Mockito.times(1)).getUsersPage(0,10);
+        int page = 0;
+        int size = 10;
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        Page<User> usersPage = new PageImpl<>(users);
+        Mockito.when(userService.getUsersPage(page, size)).thenReturn(usersPage);
+        assertThat(((int) userController.list(0,10).get().count()), is(1));
+        Mockito.verify(userService, Mockito.times(1)).getUsersPage(page, size);
     }
 
     @Test
     void addUser() {
-        ResponseEntity<User> user = userController.addUser(userDTO1);
+        userController.addUser(userDTO1);
         Mockito.verify(userService, Mockito.times(1)).saveUser(userDTO1);
     }
 

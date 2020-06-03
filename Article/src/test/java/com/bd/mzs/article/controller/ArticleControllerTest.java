@@ -4,20 +4,20 @@ import com.bd.mzs.article.controller.dto.ArticleDTO;
 import com.bd.mzs.article.entity.Article;
 import com.bd.mzs.article.entity.User;
 import com.bd.mzs.article.service.ArticleService;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,12 +25,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 class ArticleControllerTest {
 
     private static Article article1;
     private static Article article3;
     private static ArticleDTO article4;
+    private static User user1;
+    private static User user2;
 
     @Mock
     private ArticleService articleService;
@@ -38,15 +39,11 @@ class ArticleControllerTest {
     @InjectMocks
     private ArticleController articleController;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @BeforeAll
     public static void init() {
-        User user1 = new User("aaaaaa", "aaaaaaaaaa");
-        User user2 = new User("bbbbbb", "bbbbbbbbbbb");
+        user1 = new User(1,"aaaaaa", "aaaaaaaaaa");
+        user2 = new User(2,"bbbbbb", "bbbbbbbbbbb");
         article1 = new Article("aaaaaa", "aaaaaaaaaaaaaaaaa", user1);
         article3 = new Article("cccccccccc", "cccccccccccccccc", user2);
         article4 = new ArticleDTO("aaaaaa", "aaaaaaaaaaaaaaaaa", 1);
@@ -54,24 +51,31 @@ class ArticleControllerTest {
 
     @Test
     void getArticles() {
-        Page<Article> articles = Mockito.mock(Page.class);
-        Mockito.when(articleService.getArticlesPage(0,10)).thenReturn(articles);
-        assertThat(((int) articleController.list(0, 10).get().count()), is(0));
-        Mockito.verify(articleService, Mockito.times(1)).getArticlesPage(0,10);
-
+        int page = 0;
+        int size = 10;
+        List<Article> articles = new ArrayList<>();
+        articles.add(article1);
+        Page<Article> articlesPage = new PageImpl<>(articles);
+        Mockito.when(articleService.getArticlesPage(page, size)).thenReturn(articlesPage);
+        assertThat(((int) articleController.list(0,10).get().count()), is(1));
+        Mockito.verify(articleService, Mockito.times(1)).getArticlesPage(page, size);
     }
 
     @Test
     void getArticlesById() {
-        Page<Article> articles = Mockito.mock(Page.class);
-        Mockito.when(articleService.getArticlesPageById(0,10, 10)).thenReturn(articles);
-        assertThat(((int) articleController.list(0, 10).get().count()), is(0));
-        Mockito.verify(articleService, Mockito.times(1)).getArticlesPageById(0,10, 10);
+        int page = 0;
+        int size = 10;
+        List<Article> articles = new ArrayList<>();
+        articles.add(article1);
+        Page<Article> articlesPage = new PageImpl<>(articles);
+        Mockito.when(articleService.getArticlesPageById(page, size, 1)).thenReturn(articlesPage);
+        assertThat(((int) articleController.listById(0,10, 1).get().count()), is(1));
+        Mockito.verify(articleService, Mockito.times(1)).getArticlesPageById(page, size, 1);
     }
 
     @Test
     void addArticle() {
-        ResponseEntity<Article> article = articleController.addArticle(article4);
+        articleController.addArticle(article4);
         Mockito.verify(articleService, Mockito.times(1)).saveArticle(article4);
     }
 
